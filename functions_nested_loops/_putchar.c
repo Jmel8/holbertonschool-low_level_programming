@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "funcionesj.h"
+#include "main.h"
 
 int _putchar(int i)
 {	
