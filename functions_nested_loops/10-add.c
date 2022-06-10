@@ -1,7 +1,8 @@
 #include "main.h"
 /**
- * main - Entry point
- *
+ * add - Define the variables
+ * @y: int
+ * @z: int
  * Return: Always 0
  */
 int add(int y, int z)
