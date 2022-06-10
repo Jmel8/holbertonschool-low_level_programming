@@ -4,4 +4,4 @@ int _putchar(int i);
 
 void print_alphabet(void);
 
-int suma(int i, int o);
+int add(int, int);

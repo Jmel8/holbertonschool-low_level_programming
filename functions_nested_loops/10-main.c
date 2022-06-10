@@ -1,6 +1,10 @@
 #include <stdio.h>
+#include "main.h"
 
-int suma(int i, int o)
+int main(void)
 {
-	return (i+o);
+int i;
+i = add(89, 9);
+printf("%d\n", i);
+return (0);
 }
