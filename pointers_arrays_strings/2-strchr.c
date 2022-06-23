@@ -14,8 +14,10 @@ char *_strchr(char *s, char c)
 	for (j = 0; j < i; j++)
 	{
 		if (c == s[j])
+		{
 			s += j;
 		return (s);
+		}
 	}
 	return ('\0');
 }
