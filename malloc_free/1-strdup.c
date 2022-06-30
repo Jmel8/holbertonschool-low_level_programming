@@ -1,6 +1,6 @@
 #include "main.h"
 /**
- * _strdup -  returns a pointer to a newly allocated space in memory 
+ * _strdup - returns a pointer to a newly allocated space in memory
  * @str: string to be duplicated
  * Return: a string pointer
  */
@@ -23,4 +23,4 @@ char *_strdup(char *str)
 	}
 	j[k] = '\0';
 	return (j);
-}	
+}
