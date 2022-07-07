@@ -1,8 +1,8 @@
 #include "variadic_functions.h"
 
 /**
- * print_all - function that prints char
- * @list: va_list 
+ * c_f - function that prints char
+ * @list: va_list
  */
 void c_f(va_list list)
 {
