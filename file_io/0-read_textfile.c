@@ -2,9 +2,9 @@
 
 /**
  * read_textfile - reads a text file and prints it to the POSIX standard output
- * @filename:
- * @letters:
- * Return:
+ * @filename: Name of the file
+ * @letters: size of string
+ * Return: 0 on failure
  */
 
 ssize_t read_textfile(const char *filename, size_t letters)
