@@ -35,7 +35,8 @@ void copy_file(const char *filename, char *filecopy)
 
 /**
  * main - check the code
- *
+ * @ac: Number of arguments passed to the program
+ * @av:  Array of arguments
  * Return: Always 0
  */
 
