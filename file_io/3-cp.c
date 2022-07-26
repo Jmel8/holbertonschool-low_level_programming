@@ -40,7 +40,7 @@ void copy_file(const char *filename, char *filecopy)
  * Return: Always 0
  */
 
-int main(int ac, char *av[])
+int main(int ac, char **av)
 {
 	if (ac != 3)
 	{
