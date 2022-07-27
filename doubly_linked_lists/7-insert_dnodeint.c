@@ -7,46 +7,29 @@
  * @n: number to insert
  * Return: New node, 0 if it fails
  */
+
 dlistint_t *insert_dnodeint_at_index(dlistint_t **h, unsigned int idx, int n)
 {
-	dlistint_t *i = *h;
-	dlistint_t *node;
-	unsigned int count;
+	dlistint_t *new, *i = *h;
 
-	node = malloc(sizeof(dlistint_t));
-	if (node == NULL)
-		return (free(node), NULL);
-	node->n = n;
-	if (*h == NULL)
-		return (free(node), NULL);
-	if (idx == 0)
-	{
-		node->next = *h;
-		node->prev = NULL;
-		*h = node;
-		return (node);
-	}
-	for (count = 0; count != idx; count++)
-	{
-		if (i->next)
-			i = i->next;
-		else
-			break;
-	}
-	if (idx == count + 1)
-	{
-		node->prev = i;
-		i->next = node;
-		node->next = NULL;
-	}
-	else if (idx == count)
-	{
-		node->prev = i->prev;
-		node->next = i;
-		i->prev->next = node;
-		i->prev = node;
-	}
-	else
-		return (free(node), NULL);
-	return (node);
+	if (*h == NULL && idx)
+		return (NULL);
+	if (idx == '\0')
+		return (add_dnodeint(h, n));
+	for (; i->next && idx; i = i->next, idx--)
+		continue;
+	if (i->next == NULL && idx > 1)
+		return (NULL);
+	new = malloc(sizeof(dlistint_t));
+	if (new == NULL)
+		return (NULL);
+	new->n = n;
+	if (i->next || (!(i->next) && !idx))
+		i = i->prev;
+	new->next = i->next;
+	new->prev = i;
+	if (i->next)
+		i->next->prev = new;
+	i->next = new;
+	return (new);
 }
