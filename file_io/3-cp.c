@@ -1,52 +1,51 @@
 #include "main.h"
 
 /**
- * copy_file - copies the content of a file to another file
- * @filename: the file name
- * @filecopy: content to put in the file
- * Return: 0 on failure
+ * main - copies the content of a file to another file
+ * @argc: Number of arguments passed to the program
+ * @argv: Array of arguments
+ * Return: Always 0 (Success)
  */
-
-void copy_file(const char *filename, char *filecopy)
+int main(int argc, char **argv)
 {
-	char cpy[1024];
-	int i, i2, j, l;
+	int fd_r, fd_w, r, i, j;
+	char buff[1024];
 
-	i = open(filecopy, O_RDONLY);
-	i2 = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0664);
-	j = read(i, cpy, 1024);
-
-	if (j == -1 || i == -1)
+	if (argc != 3)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", filecopy);
-		exit(98);
-	}
-	while (j > 0)
-	{
-		l = write(i2, cpy, j);
-		if (l < 0)
-		{
-			dprintf(STDERR_FILENO, "Error: Can't write to file %s\n", filename);
-			exit(99);
-		}
-		j = read(i, cpy, 1024);
-	}
-}
-
-/**
- * main - check the code
- * @ac: Number of arguments passed to the program
- * @av:  Array of arguments
- * Return: Always 0
- */
-
-int main(int ac, char **av)
-{
-	if (ac != 3)
-	{
-		dprintf(STDERR_FILENO, "Usage: %s filename text\n", av[0]);
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		exit(97);
 	}
-	copy_file(av[2], av[1]);
+	fd_r = open(argv[1], O_RDONLY);
+	if (fd_r < 0)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
+		exit(98);
+	}
+	fd_w = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	while ((r = read(fd_r, buff, 1024)) > 0)
+	{
+		if (fd_w < 0 || write(fd_w, buff, r) != r)
+		{
+			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
+			close(fd_r);
+			exit(99);
+		}
+	}
+	if (r < 0)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
+		exit(98);
+	}
+	i = close(fd_r);
+	j = close(fd_w);
+	if (i < 0 || j < 0)
+	{
+		if (i < 0)
+			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_r);
+		if (j < 0)
+			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_w);
+		exit(100);
+	}
 	return (0);
 }
